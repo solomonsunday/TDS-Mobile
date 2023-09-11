@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import {useTheme} from '@emotion/react';
+
 import React from 'react';
 import {View, StyleSheet} from 'react-native';
 import {Slide} from './data';
@@ -10,19 +10,18 @@ interface Iprops {
 }
 
 const Dots: React.FC<Iprops> = ({slides, index}) => {
-  const {colors} = useTheme();
   return (
     <View style={styles.container}>
       {slides.map((ob, i) => {
         return (
           <View
-            key={ob.id}
             style={{
               width: 20,
               height: 5,
               marginRight: 5,
-              backgroundColor: i === index ? colors.primary : colors.border,
+              backgroundColor: i === index ? 'red' : 'blkue',
             }}
+            key={ob.id}
           />
         );
       })}

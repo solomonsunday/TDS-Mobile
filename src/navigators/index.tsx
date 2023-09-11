@@ -5,9 +5,7 @@ import AuthNavigator from './auth';
 import {RootScreenList} from './RootStackSceenList';
 import {useAuth} from '../store/auth/hook';
 import Onboarding from '../screens/onboarding';
-import messaging from '@react-native-firebase/messaging';
 import SplashScreen from 'react-native-splash-screen';
-import PushNotificationIOS from '@react-native-community/push-notification-ios';
 import {setCredential, setDidOnboard} from '../store/auth';
 import {useAsyncStorage} from '@react-native-async-storage/async-storage';
 import {useDispatch} from 'react-redux';
@@ -25,7 +23,7 @@ const RootNavigator: React.FC = () => {
 
   const retrieveStoredToken = async () => {
     const json = await getItem();
-    const user_da = JSON.parse(json as string);
+    const user_da = json !== null ? JSON.parse(json as string) : {};
     // console.log(user_da, 'the user data');
     dispatch(setCredential(user_da));
   };
@@ -38,29 +36,15 @@ const RootNavigator: React.FC = () => {
     }
   };
 
-  useEffect(() => {
-    if (!appLoading) {
-      SplashScreen.hide();
-    }
-  }, [appLoading]);
+  // useEffect(() => {
+  //   if (!appLoading) {
+  //     SplashScreen.hide();
+  //   }
+  // }, [appLoading]);
 
   useEffect(() => {
     retrieveStoredToken();
     getOnboardStatus();
-  }, []);
-
-  React.useEffect(() => {
-    const unsubscribe = messaging().onMessage(async message => {
-      PushNotificationIOS.addNotificationRequest({
-        id: 'notificationWithSound',
-        title: message?.notification?.title,
-        body: message?.notification?.body,
-        sound: 'customSound.wav',
-        badge: 1,
-      });
-    });
-
-    return unsubscribe;
   }, []);
 
   return (

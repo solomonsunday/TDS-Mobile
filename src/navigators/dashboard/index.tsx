@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable prettier/prettier */
 import React from 'react';
-
+import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {HomeScreenParam} from './screens';
 import {NavigationProp, RouteProp} from '@react-navigation/core';
 import {createStackNavigator} from '@react-navigation/stack';
@@ -11,13 +11,15 @@ const {Screen: StackScreen, Navigator: StackNav} =
 
 const DashboardNavigator = () => {
   return (
-    <StackNav
-      screenOptions={{
-        headerShown: false,
-      }}
-      initialRouteName="Dashboard">
-      <StackScreen component={HomeScreen} name="Dashboard" />
-    </StackNav>
+    <SafeAreaProvider>
+      <StackNav
+        screenOptions={{
+          headerShown: false,
+        }}
+        initialRouteName="Dashboard">
+        <StackScreen component={HomeScreen} name="Dashboard" />
+      </StackNav>
+    </SafeAreaProvider>
   );
 };
 

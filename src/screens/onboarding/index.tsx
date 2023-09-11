@@ -1,30 +1,26 @@
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable prettier/prettier */
+
 import React, {useRef, useState} from 'react';
-import {useTheme} from '@emotion/react';
+
 import {View, FlatList, useWindowDimensions, ViewToken} from 'react-native';
-import {Spacer, ViewContainer} from '../../components/view';
-import {BoldText} from '../../components/text/text';
-import OnBoard from '../../assets/svgs/OnboardingImg.svg';
+import {ViewContainer} from '../../components/view';
 import {Animated} from 'react-native';
 import {Slides} from './data';
 import Slider from './Slide';
 import Dots from './Dots';
-import {PrimaryButton} from '../../components/button';
+import {AppButton} from '../../components/button';
 import {RootScreenList} from '../../navigators/RootStackSceenList';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {useNavigation} from '@react-navigation/native';
-import AsyncStorage, {
-  useAsyncStorage,
-} from '@react-native-async-storage/async-storage';
+
 import {setDidOnboard} from '../../store/auth';
 import {useDispatch} from 'react-redux';
+import colors from '../../utility/colors';
 
 type nav = StackNavigationProp<RootScreenList>;
 
 const Onboarding = () => {
-  const {colors} = useTheme();
   const {navigate} = useNavigation<nav>();
   const scrollX = useRef(new Animated.Value(0)).current;
   const {width, height} = useWindowDimensions();
@@ -70,28 +66,16 @@ const Onboarding = () => {
 
         <Dots slides={Slides} index={currentIndex} />
         <ViewContainer>
-          <PrimaryButton
-            height={7}
-            text="Get started"
-            textStyle={{fontSize: 14, lineHeight: 18, fontWeight: '800'}}
-            onPress={() => {
-              dispatch(setDidOnboard(true));
-
-              navigate('AuthNavigator', {
-                screen: 'SignUp',
-              });
-            }}
-          />
           {/* <Spacer /> */}
-          <PrimaryButton
-            style={{marginTop: 5, backgroundColor: colors.white}}
+          <AppButton
+            variant="primary"
+            style={{marginTop: 5}}
             height={7}
             text="Sign in"
             textStyle={{
               fontSize: 14,
               lineHeight: 18,
               fontWeight: '800',
-              color: colors.blackPrimary,
             }}
             onPress={() => {
               dispatch(setDidOnboard(true));
