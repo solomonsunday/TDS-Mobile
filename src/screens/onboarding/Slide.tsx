@@ -1,6 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react';
-import {View, Text, useWindowDimensions, StyleSheet, Image} from 'react-native';
+import {
+  View,
+  Text,
+  useWindowDimensions,
+  StyleSheet,
+  Image,
+  ImageBackground,
+} from 'react-native';
 import {Slide} from './data';
 
 interface Iprops {
@@ -12,16 +19,10 @@ const Slider: React.FC<Iprops> = ({
   data: {image, id, text, title, redTitle, thirdText},
   index,
 }) => {
-  const {width} = useWindowDimensions();
+  const {width, height} = useWindowDimensions();
 
   return (
-    <View style={[{width, marginTop: -100}]}>
-      <Image source={image} />
-
-      <View style={styles.texts_view}>
-        <Text>"hello</Text>
-      </View>
-    </View>
+    <ImageBackground style={{height, width, zIndex: -100}} source={image} />
   );
 };
 

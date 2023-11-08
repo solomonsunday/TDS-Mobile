@@ -3,10 +3,10 @@ import React, {useEffect} from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import AuthNavigator from './auth';
 import {RootScreenList} from './RootStackSceenList';
-import {useAuth} from '../store/auth/hook';
-import Onboarding from '../screens/onboarding';
+import {useAuth} from '@store/auth/hook';
+import Onboarding from '@screens/onboarding';
 import SplashScreen from 'react-native-splash-screen';
-import {setCredential, setDidOnboard} from '../store/auth';
+import {setCredential, setDidOnboard} from '@store/auth';
 import {useAsyncStorage} from '@react-native-async-storage/async-storage';
 import {useDispatch} from 'react-redux';
 import DashboardNavigator from './dashboard';
@@ -48,10 +48,14 @@ const RootNavigator: React.FC = () => {
   }, []);
 
   return (
-    <Navigator initialRouteName="DashboardNavigator">
+    <Navigator
+      screenOptions={{
+        animation: 'fade',
+      }}
+      initialRouteName="DashboardNavigator">
       {/* when checking if user has signed in  render splash screen*/}
 
-      {user && (
+      {didOnboard && (
         <Screen
           name="DashboardNavigator"
           component={DashboardNavigator}
@@ -72,7 +76,7 @@ const RootNavigator: React.FC = () => {
         />
       )}
 
-      {!user && (
+      {/* {!user && (
         <Screen
           name="AuthNavigator"
           component={AuthNavigator}
@@ -81,7 +85,7 @@ const RootNavigator: React.FC = () => {
             animationTypeForReplace: !user ? 'pop' : 'push',
           }}
         />
-      )}
+      )} */}
     </Navigator>
   );
 };

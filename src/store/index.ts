@@ -1,7 +1,7 @@
 import {configureStore} from '@reduxjs/toolkit';
 import authReducer from './auth';
-import {authApi} from '../services/auth';
-import {washListApi} from '../services/washList';
+import {authApi} from '@services/auth';
+import {washListApi} from '@services/washList';
 import orderReducer from './washList';
 
 // import { authApi } from './auth/api';

@@ -9,8 +9,8 @@ import {
   ViewStyle,
   Text,
 } from 'react-native';
-import {heightPixel, widthPixel} from '../../utility/pxToDpConvert';
-import colors from '../../utility/colors';
+import {heightPixel, widthPixel} from '@utility/pxToDpConvert';
+import colors from '@utility/colors';
 
 type Variant = 'primary' | 'secondary';
 
@@ -55,10 +55,11 @@ export const AppButton: React.FC<ButtonProps> = ({
       style={[
         buttonStyle[variant],
         {
-          height: heightPixel(height ?? 50),
+          height: heightPixel(height ?? 56),
           borderRadius: widthPixel(15),
+          alignItems: 'center',
+          justifyContent: 'center',
         },
-
         style,
       ]}>
       {!isLoading ? (

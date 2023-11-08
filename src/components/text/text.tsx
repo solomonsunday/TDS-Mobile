@@ -1,8 +1,8 @@
 import React from 'react';
 import {Text, TextStyle} from 'react-native';
-import {fontPixel} from '../../utility/pxToDpConvert';
+import {fontPixel} from '@utility/pxToDpConvert';
 import {PropsWithChildren} from 'react';
-import colors from '../../utility/colors';
+import colors from '@utility/colors';
 
 interface TextProps extends PropsWithChildren {
   style?: TextStyle;

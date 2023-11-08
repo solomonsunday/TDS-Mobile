@@ -3,20 +3,30 @@
 
 import React, {useRef, useState} from 'react';
 
-import {View, FlatList, useWindowDimensions, ViewToken} from 'react-native';
+import {
+  View,
+  FlatList,
+  useWindowDimensions,
+  ViewToken,
+  StyleSheet,
+  Image,
+} from 'react-native';
 import {ViewContainer} from '../../components/view';
 import {Animated} from 'react-native';
 import {Slides} from './data';
 import Slider from './Slide';
 import Dots from './Dots';
-import {AppButton} from '../../components/button';
+import {AppButton} from '@components/button';
 import {RootScreenList} from '../../navigators/RootStackSceenList';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {useNavigation} from '@react-navigation/native';
-
-import {setDidOnboard} from '../../store/auth';
+import {setDidOnboard} from '@store/auth';
 import {useDispatch} from 'react-redux';
-import colors from '../../utility/colors';
+
+import dcsL from '@assets/img/dcs.png';
+import {widthPixel} from '@utility/pxToDpConvert';
+import {Paragraph} from '@components/text/text';
+import colors from '@utility/colors';
 
 type nav = StackNavigationProp<RootScreenList>;
 
@@ -24,7 +34,7 @@ const Onboarding = () => {
   const {navigate} = useNavigation<nav>();
   const scrollX = useRef(new Animated.Value(0)).current;
   const {width, height} = useWindowDimensions();
-  const slideRef = useRef(null);
+  const slideRef = useRef<any>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const dispatch = useDispatch();
 
@@ -43,10 +53,10 @@ const Onboarding = () => {
 
   const viewConfig = useRef({viewAreaCoveragePercentThreshold: 50}).current;
   return (
-    <View style={{backgroundColor: colors.white, flex: 1}}>
+    <View style={{flex: 1}}>
       <View>
         <FlatList
-          // style={{flex:1}}
+          // style={{zIndex: -10}}
           pagingEnabled
           scrollEventThrottle={32}
           horizontal
@@ -64,14 +74,25 @@ const Onboarding = () => {
           ref={slideRef}
         />
 
-        <Dots slides={Slides} index={currentIndex} />
-        <ViewContainer>
-          {/* <Spacer /> */}
+        <View style={[styles.absolute, {top: height / 4}]}>
+          <Image
+            source={dcsL}
+            resizeMode="contain"
+            style={{height: widthPixel(220)}}
+          />
+          <Paragraph color={colors.white} fontWeight="bold" fontSize={20}>
+            {"Your Garment's Bestfriend"}
+          </Paragraph>
+        </View>
+
+        <Dots slides={Slides} index={currentIndex} scrollX={scrollX} />
+        <ViewContainer style={[styles.absolute, {bottom: height / 6}]}>
           <AppButton
             variant="primary"
-            style={{marginTop: 5}}
-            height={7}
-            text="Sign in"
+            text="Get Started"
+            style={{
+              width: '80%',
+            }}
             textStyle={{
               fontSize: 14,
               lineHeight: 18,
@@ -79,9 +100,9 @@ const Onboarding = () => {
             }}
             onPress={() => {
               dispatch(setDidOnboard(true));
-              navigate('AuthNavigator', {
-                screen: 'SignIn',
-              });
+              // navigate('AuthNavigator', {
+              //   screen: 'SignIn',
+              // });
             }}
           />
         </ViewContainer>
@@ -89,5 +110,14 @@ const Onboarding = () => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  absolute: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    alignItems: 'center',
+  },
+});
 
 export default Onboarding;
