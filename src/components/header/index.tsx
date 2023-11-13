@@ -19,7 +19,7 @@ interface Props {
 }
 
 const Header = ({title, hasBorder = true, hasRightItems = true}: Props) => {
-  const {goBack} = useNavigation<nav<HomeScreenParam>>();
+  const {goBack, navigate} = useNavigation<nav<HomeScreenParam>>();
   return (
     <View
       style={[
@@ -38,7 +38,7 @@ const Header = ({title, hasBorder = true, hasRightItems = true}: Props) => {
         </Pressable>
         {hasRightItems && (
           <FlexedView>
-            <Pressable>
+            <Pressable onPress={() => navigate('Basket')}>
               <Basket />
             </Pressable>
             <Pressable style={{marginLeft: 20}}>

@@ -3,4 +3,7 @@ export type HomeScreenParam = {
   Pricelist: undefined;
   Account: undefined;
   ActiveOrder: undefined;
+  Basket: undefined;
+  Faq: undefined;
+  Review: undefined;
 };

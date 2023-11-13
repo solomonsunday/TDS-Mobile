@@ -7,6 +7,10 @@ import {NavigationProp, RouteProp} from '@react-navigation/core';
 import {createStackNavigator} from '@react-navigation/stack';
 import HomeScreen from '@screens/dashboard/index';
 import PriceList from '@screens/pricelist';
+import {Basket} from '@screens/basket';
+import {Account} from '@screens/account';
+import {Faq} from '@screens/faq';
+import {Ratings} from '@screens/rating';
 const {Screen: StackScreen, Navigator: StackNav} =
   createStackNavigator<HomeScreenParam>();
 
@@ -20,6 +24,10 @@ const DashboardNavigator = () => {
         initialRouteName="Dashboard">
         <StackScreen component={HomeScreen} name="Dashboard" />
         <StackScreen component={PriceList} name="Pricelist" />
+        <StackScreen component={Basket} name="Basket" />
+        <StackScreen component={Account} name="Account" />
+        <StackScreen component={Faq} name="Faq" />
+        <StackScreen component={Ratings} name="Review" />
       </StackNav>
     </SafeAreaProvider>
   );

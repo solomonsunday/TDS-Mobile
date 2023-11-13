@@ -14,10 +14,13 @@ import Checklist from '@assets/svgs/checklist.svg';
 import Account from '@assets/svgs/person.svg';
 import BigBell from '@assets/svgs/bigbell.svg';
 import colors from '@utility/colors';
-import {DashboardOption} from 'src/types';
+import {DashboardOption, nav} from 'src/types';
 import {OptionCard} from './components/OptionCard';
+import {useNavigation} from '@react-navigation/native';
 
 const HomeScreen: React.FC = ({}) => {
+  const {navigate} = useNavigation<nav<HomeScreenParam>>();
+
   return (
     <View
       style={{
@@ -33,7 +36,9 @@ const HomeScreen: React.FC = ({}) => {
           <Pressable>
             <NotBell />
           </Pressable>
-          <Pressable style={{marginLeft: 20}}>
+          <Pressable
+            onPress={() => navigate('Basket')}
+            style={{marginLeft: 20}}>
             <Basket />
           </Pressable>
         </FlexedView>

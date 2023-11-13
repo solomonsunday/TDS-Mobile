@@ -5,4 +5,5 @@ export default {
   white: '#fff',
   border: '#CFCECE',
   black: '#000000',
+  red: '#EE1111CC',
 };

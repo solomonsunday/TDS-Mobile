@@ -7,6 +7,7 @@ import colors from '@utility/colors';
 interface TextProps extends PropsWithChildren {
   style?: TextStyle;
   color?: string;
+  textAlign?: TextStyle['textAlign'];
   fontSize?: TextStyle['fontSize'];
   lineHeight?: TextStyle['lineHeight'];
   fontWeight?: TextStyle['fontWeight'];
@@ -22,6 +23,7 @@ export const Paragraph = ({
   fontWeight,
   mr = fontPixel(5),
   mt,
+  textAlign = 'left',
   style,
 }: TextProps) => {
   return (
@@ -34,6 +36,7 @@ export const Paragraph = ({
           fontWeight,
           marginTop: mt,
           marginRight: mr,
+          textAlign: textAlign,
         },
         style,
       ]}>
