@@ -18,12 +18,14 @@ export interface Auth {
   token: string | null;
   isLoading?: boolean;
   didOnboard: boolean;
+  isGuest: boolean;
 }
 
 const initialState: Auth = {
   isLoading: true,
   didOnboard: false,
   token: null,
+  isGuest: false,
 } as Auth;
 
 const authSlice = createSlice({
@@ -34,6 +36,12 @@ const authSlice = createSlice({
       AsyncStorage.setItem('@user', JSON.stringify({user}));
       state.user = user;
       state.isLoading = false;
+      if (user) {
+        state.isGuest = false;
+      }
+    },
+    setIsGuest(state) {
+      state.isGuest = true;
     },
     setToken(state, {payload: val}: PayloadAction<string>) {
       state.token = val;
@@ -47,10 +55,12 @@ const authSlice = createSlice({
   },
 });
 
-export const {setCredential, setDidOnboard, setToken} = authSlice.actions;
+export const {setCredential, setDidOnboard, setToken, setIsGuest} =
+  authSlice.actions;
 export default authSlice.reducer;
 export const useSelectUser = (state: RootState): User | null | undefined =>
   state.auth.user;
 export const useAppLoading = (state: RootState) => state.auth.isLoading;
 export const onboardStatus = (state: RootState) => state.auth.didOnboard;
 export const useTokenSelector = (state: RootState) => state.auth.token;
+export const isGuestSelector = (state: RootState) => state.auth.isGuest;

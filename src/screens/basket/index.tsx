@@ -39,7 +39,7 @@ export const Basket = () => {
             <ScrollView>
               <Spacer height={20} />
               {data.map(dt => (
-                <ClotheItem item={dt} type="basket" />
+                <ClotheItem key={dt.id} item={dt} type="basket" />
               ))}
             </ScrollView>
           </View>

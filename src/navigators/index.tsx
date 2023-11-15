@@ -14,7 +14,7 @@ import DashboardNavigator from './dashboard';
 const {Screen, Navigator} = createNativeStackNavigator<RootScreenList>();
 
 const RootNavigator: React.FC = () => {
-  const {user, didOnboard, appLoading} = useAuth();
+  const {user, didOnboard, appLoading, isGuest} = useAuth();
   const {getItem} = useAsyncStorage('@user');
   const {getItem: getOnboard} = useAsyncStorage('onboard');
   const dispatch = useDispatch();
@@ -55,7 +55,7 @@ const RootNavigator: React.FC = () => {
       initialRouteName="DashboardNavigator">
       {/* when checking if user has signed in  render splash screen*/}
 
-      {didOnboard && (
+      {(isGuest || user) && (
         <Screen
           name="DashboardNavigator"
           component={DashboardNavigator}
@@ -76,7 +76,7 @@ const RootNavigator: React.FC = () => {
         />
       )}
 
-      {/* {!user && (
+      {!user && !isGuest && (
         <Screen
           name="AuthNavigator"
           component={AuthNavigator}
@@ -85,7 +85,7 @@ const RootNavigator: React.FC = () => {
             animationTypeForReplace: !user ? 'pop' : 'push',
           }}
         />
-      )} */}
+      )}
     </Navigator>
   );
 };

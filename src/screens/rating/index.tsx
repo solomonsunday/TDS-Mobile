@@ -19,8 +19,8 @@ export const Ratings = () => {
           What our customers think
         </Paragraph>
         <ScrollView contentContainerStyle={{paddingTop: 30}}>
-          {revies.map(rv => (
-            <RatingItem item={rv} />
+          {revies.map((rv, ind) => (
+            <RatingItem key={ind} item={rv} />
           ))}
         </ScrollView>
       </ViewContainer>

@@ -1,7 +1,8 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 
 import {
   View,
@@ -11,7 +12,7 @@ import {
   StyleSheet,
   Image,
 } from 'react-native';
-import {ViewContainer} from '../../components/view';
+import {Spacer, ViewContainer} from '../../components/view';
 import {Animated} from 'react-native';
 import {Slides} from './data';
 import Slider from './Slide';
@@ -20,7 +21,7 @@ import {AppButton} from '@components/button';
 import {RootScreenList} from '../../navigators/RootStackSceenList';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {useNavigation} from '@react-navigation/native';
-import {setDidOnboard} from '@store/auth';
+import {setDidOnboard, setIsGuest} from '@store/auth';
 import {useDispatch} from 'react-redux';
 
 import dcsL from '@assets/img/dcs.png';
@@ -37,17 +38,29 @@ const Onboarding = () => {
   const slideRef = useRef<any>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const dispatch = useDispatch();
+  const [ind, setInd] = useState(0);
 
   const scrollTo = () => {
-    if (currentIndex < Slides.length - 1) {
-      slideRef.current.scrollToIndex({index: currentIndex + 1});
-    }
+    slideRef.current.scrollToIndex({index: ind});
+    setInd(prev => prev + 1);
   };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      scrollTo();
+    }, 1500);
+
+    if (ind === Slides.length) {
+      clearInterval(interval);
+    }
+    return () => clearInterval(interval);
+  }, [ind]);
 
   const onViewableItemsChanged = React.useRef(
     (info: {viewableItems: ViewToken[]; changed: ViewToken[]}) => {
       const newIndex = info.viewableItems[0].index;
       setCurrentIndex(newIndex as number);
+      setInd(newIndex as number);
     },
   ).current;
 
@@ -86,10 +99,31 @@ const Onboarding = () => {
         </View>
 
         <Dots slides={Slides} index={currentIndex} scrollX={scrollX} />
-        <ViewContainer style={[styles.absolute, {bottom: height / 6}]}>
+        <ViewContainer style={[styles.absolute, {bottom: height / 7}]}>
+          <AppButton
+            variant="secondary"
+            text="Log in"
+            style={{
+              width: '80%',
+              backgroundColor: 'transparent',
+            }}
+            textStyle={{
+              fontSize: 14,
+              lineHeight: 18,
+              fontWeight: '800',
+              // color: colors.white,
+            }}
+            onPress={() => {
+              dispatch(setDidOnboard(true));
+              // navigate('AuthNavigator', {
+              //   screen: 'SignIn',
+              // });
+            }}
+          />
+          <Spacer />
           <AppButton
             variant="primary"
-            text="Get Started"
+            text="Schedule A Pickup"
             style={{
               width: '80%',
             }}
@@ -100,6 +134,7 @@ const Onboarding = () => {
             }}
             onPress={() => {
               dispatch(setDidOnboard(true));
+              dispatch(setIsGuest());
               // navigate('AuthNavigator', {
               //   screen: 'SignIn',
               // });

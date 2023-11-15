@@ -1,3 +1,4 @@
+/* eslint-disable react/react-in-jsx-scope */
 import Header from '@components/header';
 import {Paragraph} from '@components/text/text';
 import {BaseView, FlexedView, Spacer, ViewContainer} from '@components/view';
@@ -10,7 +11,7 @@ import {
   LayoutAnimation,
 } from 'react-native';
 import question from '@assets/img/faq.png';
-import {heightPixel, widthPixel} from '@utility/pxToDpConvert';
+import {heightPixel} from '@utility/pxToDpConvert';
 import colors from '@utility/colors';
 import {useState} from 'react';
 import ArrowUp from '@assets/svgs/arrow-up.svg';
@@ -51,8 +52,8 @@ export const Faq = () => {
             <Image style={styles.img} source={question} resizeMode="contain" />
           </FlexedView>
           <Spacer height={45} />
-          {faqs.map(fq => (
-            <View style={styles.item}>
+          {faqs.map((fq, ind) => (
+            <View key={ind} style={styles.item}>
               <FlexedView>
                 <View style={{flex: 1}}>
                   <Paragraph fontSize={16} fontWeight="500">

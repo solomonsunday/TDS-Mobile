@@ -43,8 +43,9 @@ export const AppTextInput = ({
 
 const styles = StyleSheet.create({
   body: {
-    flex: 1,
+    // flex: 1,
     width: '100%',
+    marginBottom: heightPixel(20),
   },
   inputContaner: {
     flexDirection: 'row',
