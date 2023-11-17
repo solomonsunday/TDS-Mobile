@@ -72,6 +72,7 @@ export const Account = () => {
                 style={{
                   borderWidth: 1,
                   borderRadius: 15,
+                  transform: [{scaleX: 0.8}, {scaleY: 0.8}],
                 }}
                 onValueChange={setNotify}
               />

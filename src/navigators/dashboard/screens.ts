@@ -6,4 +6,5 @@ export type HomeScreenParam = {
   Basket: undefined;
   Faq: undefined;
   Review: undefined;
+  Checkout: undefined;
 };

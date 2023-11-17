@@ -11,6 +11,7 @@ import {Basket} from '@screens/basket';
 import {Account} from '@screens/account';
 import {Faq} from '@screens/faq';
 import {Ratings} from '@screens/rating';
+import {Checkout} from '@screens/basket/Checkout';
 const {Screen: StackScreen, Navigator: StackNav} =
   createStackNavigator<HomeScreenParam>();
 
@@ -28,6 +29,7 @@ const DashboardNavigator = () => {
         <StackScreen component={Account} name="Account" />
         <StackScreen component={Faq} name="Faq" />
         <StackScreen component={Ratings} name="Review" />
+        <StackScreen component={Checkout} name="Checkout" />
       </StackNav>
     </SafeAreaProvider>
   );

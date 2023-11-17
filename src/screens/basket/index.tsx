@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import Header from '@components/header';
 import {Paragraph} from '@components/text/text';
@@ -18,8 +19,12 @@ import {AppButton} from '@components/button';
 import {NAIRA} from '@utility/naira';
 import colors from '@utility/colors';
 import {heightPixel} from '@utility/pxToDpConvert';
+import {useNavigation} from '@react-navigation/native';
+import {nav} from 'src/types';
+import {HomeScreenParam} from 'src/navigators/dashboard/screens';
 
 export const Basket = () => {
+  const {navigate} = useNavigation<nav<HomeScreenParam>>();
   const [data, setData] = useState([...clothes]);
 
   return (
@@ -65,6 +70,7 @@ export const Basket = () => {
               style={{width: '45%'}}
               variant="primary"
               text="Proceed"
+              onPress={() => navigate('Checkout')}
             />
           </FlexedView>
         </BottomViewContainer>

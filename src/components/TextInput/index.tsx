@@ -7,6 +7,7 @@ import {
   TextInput,
   StyleSheet,
   Platform,
+  ViewStyle,
 } from 'react-native';
 import colors from '../../utility/colors';
 import {heightPixel, widthPixel} from '../../utility/pxToDpConvert';
@@ -15,12 +16,14 @@ interface IProps extends TextInputProps {
   label?: string;
   rightIcon?: ReactElement;
   leftIcon?: ReactElement;
+  containerStyle?: ViewStyle;
 }
 
 export const AppTextInput = ({
   label,
   rightIcon,
   leftIcon,
+  containerStyle,
   ...props
 }: IProps) => {
   return (
@@ -32,7 +35,7 @@ export const AppTextInput = ({
           </Text>
         </View>
       )}
-      <View style={[styles.inputContaner]}>
+      <View style={[styles.inputContaner, {...containerStyle}]}>
         {leftIcon && leftIcon}
         <TextInput style={[styles.input]} {...props} />
         {rightIcon && rightIcon}

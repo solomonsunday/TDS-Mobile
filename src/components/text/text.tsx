@@ -18,7 +18,7 @@ interface TextProps extends PropsWithChildren {
 export const Paragraph = ({
   children,
   color = colors.black,
-  fontSize = fontPixel(14),
+  fontSize = fontPixel(15),
   lineHeight,
   fontWeight,
   mr = fontPixel(5),
