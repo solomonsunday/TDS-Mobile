@@ -17,6 +17,7 @@ interface IProps extends TextInputProps {
   rightIcon?: ReactElement;
   leftIcon?: ReactElement;
   containerStyle?: ViewStyle;
+  inputStyle?: ViewStyle;
 }
 
 export const AppTextInput = ({
@@ -24,10 +25,11 @@ export const AppTextInput = ({
   rightIcon,
   leftIcon,
   containerStyle,
+  inputStyle,
   ...props
 }: IProps) => {
   return (
-    <View style={styles.body}>
+    <View style={[styles.body, {...containerStyle}]}>
       {label && (
         <View>
           <Text>
@@ -35,7 +37,7 @@ export const AppTextInput = ({
           </Text>
         </View>
       )}
-      <View style={[styles.inputContaner, {...containerStyle}]}>
+      <View style={[styles.inputContaner, {...inputStyle}]}>
         {leftIcon && leftIcon}
         <TextInput style={[styles.input]} {...props} />
         {rightIcon && rightIcon}
@@ -46,7 +48,6 @@ export const AppTextInput = ({
 
 const styles = StyleSheet.create({
   body: {
-    // flex: 1,
     width: '100%',
     marginBottom: heightPixel(20),
   },
@@ -66,5 +67,6 @@ const styles = StyleSheet.create({
   input: {
     paddingHorizontal: widthPixel(15),
     flex: 1,
+    height: '100%',
   },
 });

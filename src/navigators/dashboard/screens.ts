@@ -7,4 +7,6 @@ export type HomeScreenParam = {
   Faq: undefined;
   Review: undefined;
   Checkout: undefined;
+  AddReview: undefined;
+  Support: undefined;
 };

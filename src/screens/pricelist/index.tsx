@@ -18,8 +18,12 @@ import {clothes} from '../../data';
 import {ClotheItem} from './components/ClotheItem';
 import {AppButton} from '@components/button';
 import {NAIRA} from '@utility/naira';
+import {useNavigation} from '@react-navigation/native';
+import {nav} from 'src/types';
+import {HomeScreenParam} from 'src/navigators/dashboard/screens';
 
 const PriceList = () => {
+  const {navigate} = useNavigation<nav<HomeScreenParam>>();
   const [selectedOption, setSelectedOption] = useState(options[0]);
   const [selectedService, setSelectedService] = useState(serviceTypes[0].id);
   const [searchTerm, setSearchTerm] = useState('');
@@ -82,7 +86,11 @@ const PriceList = () => {
         />
       </ViewContainer>
       <BottomViewContainer>
-        <AppButton variant="primary" text="Proceed To Basket" />
+        <AppButton
+          variant="primary"
+          text="Proceed To Basket"
+          onPress={() => navigate('Basket')}
+        />
       </BottomViewContainer>
     </BaseView>
   );

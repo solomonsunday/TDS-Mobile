@@ -65,6 +65,7 @@ export const Basket = () => {
               style={{width: '45%'}}
               variant="secondary"
               text="Add more items"
+              onPress={() => navigate('Pricelist')}
             />
             <AppButton
               style={{width: '45%'}}

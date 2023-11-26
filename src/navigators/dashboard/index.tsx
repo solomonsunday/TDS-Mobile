@@ -12,6 +12,9 @@ import {Account} from '@screens/account';
 import {Faq} from '@screens/faq';
 import {Ratings} from '@screens/rating';
 import {Checkout} from '@screens/basket/Checkout';
+import {ActiveOrder} from '@screens/active-order';
+import {AddReview} from '@screens/rating/addReview';
+import {Support} from '@screens/contact-support';
 const {Screen: StackScreen, Navigator: StackNav} =
   createStackNavigator<HomeScreenParam>();
 
@@ -30,6 +33,9 @@ const DashboardNavigator = () => {
         <StackScreen component={Faq} name="Faq" />
         <StackScreen component={Ratings} name="Review" />
         <StackScreen component={Checkout} name="Checkout" />
+        <StackScreen component={ActiveOrder} name="ActiveOrder" />
+        <StackScreen component={AddReview} name="AddReview" />
+        <StackScreen component={Support} name="Support" />
       </StackNav>
     </SafeAreaProvider>
   );

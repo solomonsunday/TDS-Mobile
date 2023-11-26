@@ -141,7 +141,7 @@ export const Account = () => {
           <Spacer height={40} />
           <FlexedView justifyContent="center">
             <Paragraph>Have any issues? Chat with our operator...</Paragraph>
-            <Pressable>
+            <Pressable onPress={() => navigate('Support')}>
               <ChatIcon />
             </Pressable>
           </FlexedView>
