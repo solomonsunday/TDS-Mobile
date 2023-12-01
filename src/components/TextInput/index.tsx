@@ -1,5 +1,5 @@
 /* eslint-disable react/react-in-jsx-scope */
-import {ReactElement} from 'react';
+import {ReactElement, useState} from 'react';
 import {
   Text,
   TextInputProps,
@@ -28,6 +28,7 @@ export const AppTextInput = ({
   inputStyle,
   ...props
 }: IProps) => {
+  const [height, setHeight] = useState(0);
   return (
     <View style={[styles.body, {...containerStyle}]}>
       {label && (
@@ -37,9 +38,20 @@ export const AppTextInput = ({
           </Text>
         </View>
       )}
-      <View style={[styles.inputContaner, {...inputStyle}]}>
+      <View
+        style={[
+          styles.inputContaner,
+          {...inputStyle},
+          {height: Math.max(60, height)},
+        ]}>
         {leftIcon && leftIcon}
-        <TextInput style={[styles.input]} {...props} />
+        <TextInput
+          onContentSizeChange={event => {
+            setHeight(event.nativeEvent.contentSize.height);
+          }}
+          style={[styles.input]}
+          {...props}
+        />
         {rightIcon && rightIcon}
       </View>
     </View>

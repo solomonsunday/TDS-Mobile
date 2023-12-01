@@ -1,17 +1,17 @@
 import {configureStore} from '@reduxjs/toolkit';
 import authReducer from './auth';
 import {authApi} from '@services/auth';
-import {washListApi} from '@services/washList';
-import orderReducer from './washList';
+import {basketApi} from '@services/basket';
+import basketReducer from './basket';
 
 // import { authApi } from './auth/api';
 
 export const store = configureStore({
   reducer: {
     auth: authReducer,
-    order: orderReducer,
+    basket: basketReducer,
     [authApi.reducerPath]: authApi.reducer,
-    [washListApi.reducerPath]: washListApi.reducer,
+    [basketApi.reducerPath]: basketApi.reducer,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
@@ -20,7 +20,7 @@ export const store = configureStore({
     })
       .concat(authApi.middleware)
 
-      .concat(washListApi.middleware),
+      .concat(basketApi.middleware),
 });
 
 export type AppDispatch = typeof store.dispatch;

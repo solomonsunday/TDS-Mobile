@@ -5,8 +5,8 @@ import {Response} from '@store/interfaces';
 import {RequestEstimate} from './interfaces';
 import {baseUrl} from '@utility/baseUrl';
 
-export const washListApi = createApi({
-  reducerPath: 'washListApi',
+export const basketApi = createApi({
+  reducerPath: 'basketApi',
   baseQuery: axiosBaseQuery({baseUrl: `${baseUrl}/orders`}),
   endpoints: builder => ({
     getOngoingOrder: builder.query<Response, void>({
@@ -18,4 +18,4 @@ export const washListApi = createApi({
   }),
 });
 
-export const {useGetOngoingOrderQuery} = washListApi;
+export const {useGetOngoingOrderQuery} = basketApi;

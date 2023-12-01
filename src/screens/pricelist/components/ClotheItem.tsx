@@ -1,11 +1,14 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {Paragraph} from '@components/text/text';
 import colors from '@utility/colors';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, StyleSheet, Image, Pressable} from 'react-native';
 import cloth from '@assets/img/cloth.png';
 import {heightPixel, widthPixel} from '@utility/pxToDpConvert';
 import {AppButton} from '@components/button';
 import {ViewContainer} from '@components/view';
+import {useDispatch} from 'react-redux';
+import {addToBasket} from '@store/basket';
 
 type CardType = 'pricelist' | 'basket';
 
@@ -13,24 +16,43 @@ interface IProps {
   item: {
     label: string;
     price: number | string;
-    id: string | number;
+    id: string;
+    quantity?: number;
   };
   type?: CardType;
   onDelete?: () => void;
 }
 
 export const ClotheItem = ({
-  item: {label, price},
+  item: {label, price, quantity: qty, id},
   type = 'pricelist',
   onDelete,
 }: IProps) => {
   const [quantity, setQuantity] = useState(0);
+  const dispatch = useDispatch();
 
   const editQuantity = (type: string) => {
     if (type === 'dcs' && quantity <= 0) {
       return;
     }
     setQuantity(prev => (type === 'dcs' ? prev - 1 : prev + 1));
+  };
+
+  useEffect(() => {
+    if (type === 'basket') {
+      setQuantity(qty as number);
+    }
+  }, []);
+
+  const addItemToBasket = () => {
+    const item = {
+      label,
+      price,
+      id,
+      quantity,
+    };
+
+    dispatch(addToBasket(item));
   };
 
   return (
@@ -82,6 +104,7 @@ export const ClotheItem = ({
             height={40}
             text="Add to basket"
             variant="secondary"
+            onPress={addItemToBasket}
           />
         )}
       </View>

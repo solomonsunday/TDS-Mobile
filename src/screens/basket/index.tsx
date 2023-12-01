@@ -22,16 +22,26 @@ import {heightPixel} from '@utility/pxToDpConvert';
 import {useNavigation} from '@react-navigation/native';
 import {nav} from 'src/types';
 import {HomeScreenParam} from 'src/navigators/dashboard/screens';
+import {useDispatch, useSelector} from 'react-redux';
+import {basketSelector, removeFromBasket} from '@store/basket';
 
 export const Basket = () => {
   const {navigate} = useNavigation<nav<HomeScreenParam>>();
+  const items = useSelector(basketSelector);
   const [data, setData] = useState([...clothes]);
+  const dispatch = useDispatch();
+
+  console.log(items, 'the basket items');
+
+  const removeItem = (id: string) => {
+    dispatch(removeFromBasket(id));
+  };
 
   return (
     <BaseView>
       <Header hasRightItems={false} hasBorder={false} title="Laundry basket" />
       <ViewContainer style={styles.container}>
-        {!data.length ? (
+        {!items?.length ? (
           <Center>
             <Image source={basket} />
             <Spacer />
@@ -43,14 +53,19 @@ export const Basket = () => {
           <View style={{flex: 1}}>
             <ScrollView>
               <Spacer height={20} />
-              {data.map(dt => (
-                <ClotheItem key={dt.id} item={dt} type="basket" />
+              {items?.map(dt => (
+                <ClotheItem
+                  key={dt.id}
+                  item={dt}
+                  type="basket"
+                  onDelete={() => removeItem(dt.id)}
+                />
               ))}
             </ScrollView>
           </View>
         )}
       </ViewContainer>
-      {data.length && (
+      {items?.length ? (
         <BottomViewContainer style={{height: heightPixel(170)}}>
           <FlexedView style={styles.totalView} justifyContent="space-between">
             <Paragraph fontSize={16} lineHeight={21}>
@@ -75,7 +90,7 @@ export const Basket = () => {
             />
           </FlexedView>
         </BottomViewContainer>
-      )}
+      ) : null}
     </BaseView>
   );
 };
